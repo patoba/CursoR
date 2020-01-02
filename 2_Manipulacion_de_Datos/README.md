@@ -9,17 +9,12 @@ Entender los tipos de datos básicos que R posee
 Indice
 ------
 
-1. **[1. Conceptos Clave][1]**
-
-2. **[2. Vectores][2]**
-
-3. **[3. Matrices][3]**
-
-4. **[4. Arreglos][4]**
-
-5. **[5. DataFrames][5]**
-
-6. **[Retorno][6]**
+**[1. Conceptos Clave][1]**  
+**[2. Vectores][2]**  
+**[3. Matrices][3]**  
+**[4. Arreglos][4]**  
+**[5. DataFrames][5]**  
+**[Retorno][6]**  
 
 ### 1. Conceptos Clave
 
