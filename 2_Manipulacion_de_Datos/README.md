@@ -1,31 +1,35 @@
-Curso de Lenguaje R
-===================
+Manipulación de Datos
+=====================
 
 Objetivo
 --------
 
-Proporcionar informacion suficiente para comprender el lenguaje R con codigos de ejemplo
-
-Descripcion del proyecto
-------------------------
-
-Se encontrara teoria y codigos de ejemplo para todos los temas
+Entender los tipos de datos básicos que R posee
 
 Indice
 ------
 
-**[1. Introducción a R][1]**
+**[1. Conceptos Clave][1]**
 
-**[2. Manipulación de Datos en R][2]**
+**[2. Vectores][2]**
 
-**[3. Programación Estructurada][3]**
- 
-**[4. Lectura de Datos][4]**
- 
-**[5. Graficación][5]**
+**[3. Matrices][3]**
 
-**[6. Distribuciones de Probabilidad][6]**
+**[4. Arreglos][4]**
 
+**[5. DataFrames][5]**
 
-[1]: https://github.com/patoba/Curso-Java/tree/master/Instalacion%20de%20Java 'Instalacion Java'
+**[Retorno][6]**
 
+### Conceptos Clave
+
+asas
+
+### dasd
+
+[1]: https://github.com/patoba/CursoR/tree/master/1_Introduccion_a_R '1. Conceptos Clave'
+[2]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos '2. Vectores'
+[3]: https://github.com/patoba/CursoR/tree/master/3_Programacion_Estructurada '3. Matrices'
+[4]: https://github.com/patoba/CursoR/tree/master/4_Lectura_Datos '4. Arreglos'
+[5]: https://github.com/patoba/CursoR/tree/master/5_Graficacion '5. DataFrames'
+[6]: https://github.com/patoba/CursoR '6. Retorno'
