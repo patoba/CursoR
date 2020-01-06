@@ -18,8 +18,6 @@ Indice
 
 **[2. Manipulación de Datos][2]**
 
-jbjhjh
-
 **[3. Programación Estructurada][3]**
 
 **[4. Lectura de Datos][4]**
