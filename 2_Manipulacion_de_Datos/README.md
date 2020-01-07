@@ -263,11 +263,11 @@ Para crear una matriz se usa la función matrix(data = NA, nrow = 1, ncol = 1, b
                                             dimnames = NULL)  
 
 donde:
-> **data:** Son los elementos de la matriz
-> **nrow:** Número de renglones
-> **ncol:** Número de columnas
-> **byrow:** Ir insertando data por renglones
-> **dinmames:** Nombre a columna/filas
+* **data:** Son los elementos de la matriz
+* **nrow:** Número de renglones
+* **ncol:** Número de columnas
+* **byrow:** Ir insertando data por renglones
+* **dinmames:** Nombre a columna/filas
 
 Ejemplos:
 
@@ -592,6 +592,7 @@ Una lista se puede crear de la forma
 
 ```
 lista <- list("cadena1", "cadena2", 5:3, T, 229.21)
+print(lista)
 
 Salida:
 [[1]]
