@@ -537,10 +537,26 @@ det(m)  # La matriz debe ser cuadrada no singular
 
 Los arreglos son estructuras multidimensionales pueden poseer mas de dos dimensiones
 
+```
 a <- array(1:12 * 3,
             dim = c(2,3,2),  # Renglones, columnas, altura
             dimnames = list(c("hombres","mujeres"),c("edad","peso","altura"),
                             c("villarriba","villabajo")))
+print(a)
+
+Salida:
+, , villarriba
+
+        edad peso altura
+hombres    3    9     15
+mujeres    6   12     18
+
+, , villabajo
+
+        edad peso altura
+hombres   21   27     33
+mujeres   24   30     36
+```
 
 #### Accediendo a elementos
 
@@ -563,7 +579,8 @@ Promedio de altura, peso y altura de hombres y mujeres
 apply(a,2,mean)
 
 Salida:
-
+edad   peso altura 
+  13.5   19.5   25.5
 ```
 ### 5. Listas
 
