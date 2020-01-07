@@ -20,7 +20,7 @@ Indice
 
 #### Logical
 
-***Logical** es un tipo de dato que almacena unicamente T ó F. Podemos encontrar en R constantes True y False como TRUE y FALSE  o como T y F. Al aplicar ciertos operadores el resultado es un valor de tipo Logical este es el caso de los operadores de comparación (>, <, !=, ==, <=, >=) y los operadores relacionales (!, & |)
+**Logical** es un tipo de dato que almacena unicamente T ó F. Podemos encontrar en R constantes True y False como TRUE y FALSE  o como T y F. Al aplicar ciertos operadores el resultado es un valor de tipo Logical este es el caso de los operadores de comparación (>, <, !=, ==, <=, >=) y los operadores relacionales (!, & |)
 
 ```
 1 == 3  # Regresa F
@@ -255,16 +255,443 @@ v1 %% v2  # Da como resultado 1 2 3 4
 
 ### 3. Matrices
 
+Una **matriz** es un conjunto de objetos del mismo tipo ordenados por columnas y filas. 
+
+#### Creación
+
+Para crear una matriz se usa la función matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
+                                            dimnames = NULL)  
+
+donde:
+> **data:** Son los elementos de la matriz
+> **nrow:** Número de renglones
+> **ncol:** Número de columnas
+> **byrow:** Ir insertando data por renglones
+> **dinmames:** Nombre a columna/filas
+
+Ejemplos:
+
+```
+matrix(1:10)
+
+Salida:
+ [,1]
+ [1,]    1
+ [2,]    2
+ [3,]    3
+ [4,]    4
+ [5,]    5
+ [6,]    6
+ [7,]    7
+ [8,]    8
+ [9,]    9
+[10,]   10
+```
+
+```
+matrix(1:10, nrow=2)
+
+Salida:
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10
+```
+
+```
+matrix(1:10, ncol = 2)
+
+Salida:
+     [,1] [,2]
+[1,]    1    6
+[2,]    2    7
+[3,]    3    8
+[4,]    4    9
+[5,]    5   10
+```
+
+```
+matrix(1:10, ncol = 2, byrow=T)
+
+Salida:
+     [,1] [,2]
+[1,]    1    2
+[2,]    3    4
+[3,]    5    6
+[4,]    7    8
+[5,]    9   10
+```
+
+marca error
+```
+matrix(1:10, 3, 3)
+```
+
+#### Funciones Asociadas a una Matriz
+
+Algunas funciones utiles al trabajar con matrices
+
+```
+m <- matrix(1:6, ncol=2, byrow=T)
+
+dim(m)  # Dimensiones de la matriz. Salida = 3 2
+dimnames(m)  # Nombre de las dimensiones de la matriz. Salida = NULL
+colnames(m)  # Nombre de las columnas de la matriz. Salida = NULL
+rownames(m)  # Nombre de los renglones de la matriz. Salida = NULL
+mode(m)  # Tipo de datos de la matriz. Salida = "numeric"
+length(m)  # Devuelve el total de elementos de la matriz. Salida = 6
+is.matrix(m)  # Devuelve T si m es una matriz. Salida = T
+```
+
+Cambiando el nombre a las columnas y renglones
+
+```
+m <- matrix(1:6, ncol=2, byrow=T)
+colnames(m) <- c('a', 'b')
+rownames(m) <- tolower(rev(LETTERS)[1:3])
+colnames(m)  # Salida = 'a' 'b'
+rownames(m)  # Salida = "z" "y" "x"
+```
+
+Cargando los colnames y rownames en la creacion
+
+```
+col <- c('a', 'b')
+row <- tolower(rev(LETTERS)[1:3])
+m <- matrix(1:6, ncol=2, byrow=T, dimnames = list(row, col))
+colnames(m)  # Salida = 'a' 'b'
+rownames(m)  # Salida = "z" "y" "x"
+```
+
+#### Concatenar Datos
+
+Podemos concatenar agregar una nueva columna o fila con las funciones cbind y rbind  
+
+Agregando una columna:
+
+```
+m <- matrix(1:4, nrow=2)
+v <- 11:12
+cbind(m, v)
+
+Salida:
+          v
+[1,] 1 3 11
+[2,] 2 4 12
+```
+
+Agregando un renglon:
+
+```
+m <- matrix(1:4, nrow=2)
+v <- 11:12
+rbind(m, v)
+
+Salida:
+  [,1] [,2]
+     1    3
+     2    4
+v   11   12
+```
+
+#### Acceder a Elementos
+
+Podemos acceder a elementos de la matriz de diversas formas
+
+Elemento 1,2 de la matriz m
+
+```
+m <- matrix(1:4, nrow=2)
+print(m[1,2])  # La salida es 3
+```
+
+Toda la segunda columna
+
+```
+m <- matrix(1:4, nrow=2)
+print(m[,2])  # La salida es 3 4
+```
+
+Toda la primera fila
+
+```
+m <- matrix(1:4, nrow=2)
+print(m[1,])  # La salida es 1 3
+```
+
+#### Función Apply
+
+Podemos aplicar una función sobre los renglones o columnas. Aplicaremos la función apply sobre las columnas de una matriz.
+
+```
+m <- matrix(1:6, nrow = 3)
+apply(m, 2, max)  # Obtenemos el maximo de cada columna. El 2 simboliza el maximo
+                  # Salida = 3 6
+```
+
+#### Operaciones con Matrices
+
+Las matrices poseen operaciones basicas entre ellas, con vectores y con escalares
+
+```
+m1 <- matrix(1:4, nrow = 2)
+m2 <- matrix(5:8, nrow = 2)
+
+m1 + m2  # Suma
+m1 - m2  # Resta
+m1 * m2  # Multiplicacion (elemento a elemento)
+m1 / m2  # Division (elemento a elemento)
+```
+
+Operaciones Matriz - Vector. El vector se convierte en una matriz que posee las dimensiones de la matriz con la que queremos realizar la operación.
+
+```
+m <- matrix(1:4, nrow = 2)
+v <- c(5, 6)
+
+m + v  # Suma
+m - v  # Resta
+m * v  # Multiplicación
+m / v  # División
+```
+
+Operaciones Matriz - Escalar. Se crea una matriz que posee una dimensión igual a la matriz con la que queremos realizar la operación que todos sus elementos son el escalar
+
+```
+m <- matrix(1:4, nrow = 2)
+c <- 10
+
+m + c  # Suma
+m - c  # Resta
+m * c  # Multiplicación
+m / c  # División
+```
+
+#### Funciones de Algebra Lineal
+
+Existen multiples funciones/operadores relacionados con Algebra Lineal en R
+
+Multiplicación usual de matrices
+
+```
+m1 <- matrix(1:4, nrow = 2)
+m2 <- matrix(5:8, nrow = 2)
+
+m1 %*% m2  # Multiplicación usual de matrices
+```
+
+```
+m <- matrix(1:4, nrow = 2)
+v <- c(5, 6)
+
+m %*% v  # Multiplicación usual de matrices. El vector se trabaja como un vector columna.
+```
+
+Transpuesta de una matriz
+
+```
+m <- matrix(1:4, nrow = 2)
+t(m)  # Transpuesta de una matriz
+```
+
+Vector unitario
+
+```
+matrix(0, 10, 1)
+```
+
+Diagonal de una matriz
+
+```
+m <- matrix(1:4, nrow = 2)
+diag(m)  # 1 4
+```
+
+Matriz diagonal
+
+```
+v <- 1:3
+diag(v)
+```
+
+Matriz Identendidad
+
+```
+diag(rep(1, 3))
+```
+
+Inversa de una Matriz
+
+```
+m <- matrix(1:4, nrow=2)
+solve(m)  # Inversa
+```
+
+Determinante de una matriz
+
+```
+m <- matrix(1:4, nrow=2)
+det(m)  # La matriz debe ser cuadrada no singular
+```
+
 ### 4. Arreglos
 
-### 5. DataFrames
+Los arreglos son estructuras multidimensionales pueden poseer mas de dos dimensiones
 
-### Retorno
+a <- array(1:12 * 3,
+            dim = c(2,3,2),  # Renglones, columnas, altura
+            dimnames = list(c("hombres","mujeres"),c("edad","peso","altura"),
+                            c("villarriba","villabajo")))
+
+#### Accediendo a elementos
+
+Todos los elementos de la ciudad villabajo
+
+```
+a[,,"villabajo"]
+
+Salida:
+edad peso altura
+hombres   21   27     33
+mujeres   24   30     36
+```
+
+#### Funcion apply
+
+Promedio de altura, peso y altura de hombres y mujeres 
+
+```
+apply(a,2,mean)
+
+Salida:
+
+```
+### 5. Listas
+
+Las listas son estruturas que permiten almacenar elementos de distintos tipos de datos
+
+#### Creación
+
+Una lista se puede crear de la forma
+
+```
+lista <- list("cadena1", "cadena2", 5:3, T, 229.21)
+
+Salida:
+[[1]]
+[1] "cadena1"
+
+[[2]]
+[1] "cadena2"
+
+[[3]]
+[1] 5 4 3
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] 229.21
+```
+
+Podemos crear una lista cuyos elementos tengan una etiqueta, lo podemos hacer de la siguiente forma:
+
+```
+lista <- list(1:3, matrix(c(1:4), nrow = 2),
+        list("azul", 5.9))  # Creamos la lista
+names(lista) <- c("primer", "segundo", "tercero")
+print(lista)
+
+Salida:
+$primer
+[1] 1 2 3
+
+$segundo
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+$tercero
+$tercero[[1]]
+[1] "azul"
+
+$tercero[[2]]
+[1] 5.9
+```
+#### Accediendo a elementos de una lista
+
+Accediendo a elementos de una lista por indices
+
+```
+lista <- list(1:3, matrix(c(1:4), nrow = 2),
+        list("azul", 5.9))  # Creamos la lista
+names(lista) <- c("primer", "segundo", "tercero")
+
+print(lista[1])  # Accedemos al primer elemento de la lista
+
+Salida:
+1 2 3
+```
+
+Accediendo a elementos de una lista por nombres
+
+```
+lista <- list(1:3, matrix(c(1:4), nrow = 2),
+        list("azul", 5.9))  # Creamos la lista
+names(lista) <- c("primer", "segundo", "tercero")
+
+print(lista$segundo)  # Accedemos al primer elemento de la lista
+
+Salida:
+a
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+```
+
+Accediendo a elementos de elementos de una lista
+
+```
+lista <- list(1:3, matrix(c(1:4), nrow = 2),
+        list("azul", 5.9))  # Creamos la lista
+names(lista) <- c("primer", "segundo", "tercero")
+
+print(lista[3][1])  # Accedemos al primer elemento del tercer elemento de la lista 
+
+Salida:
+5.9
+```
+#### Convertir una lista a un vector
+
+Para convertir una lista a un vector se usa la función unlist
+
+```
+lista <- list(LETTERS)
+print(unlist(LETTERS))
+
+Salida:
+[1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+
+```
+
+```
+lista <- list(LETTERS, 1:20)
+unlist(lista)
+
+Salida:
+ [1] "A"  "B"  "C"  "D"  "E"  "F"  "G"  "H"  "I"  "J"  "K"  "L"  "M"  "N"  "O" 
+[16] "P"  "Q"  "R"  "S"  "T"  "U"  "V"  "W"  "X"  "Y"  "Z"  "1"  "2"  "3"  "4" 
+[31] "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15" "16" "17" "18" "19"
+[46] "20"
+```
+
+### 6. DataFrames
 
 
-[1]: https://github.com/patoba/CursoR/tree/master/1_Introduccion_a_R '1. Conceptos Clave'
-[2]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos '2. Vectores'
-[3]: https://github.com/patoba/CursoR/tree/master/3_Programacion_Estructurada '3. Matrices'
-[4]: https://github.com/patoba/CursoR/tree/master/4_Lectura_Datos '4. Arreglos'
-[5]: https://github.com/patoba/CursoR/tree/master/5_Graficacion '5. DataFrames'
+
+[1]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos#1-conceptos-clave '1. Conceptos Clave'
+[2]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos#2-vectores '2. Vectores'
+[3]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos#3-matrices '3. Matrices'
+[4]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos#4-arreglos '4. Arreglos'
+[5]: https://github.com/patoba/CursoR/tree/master/2_Manipulacion_de_Datos#5-dataframes '5. DataFrames'
 [6]: https://github.com/patoba/CursoR '6. Retorno'
