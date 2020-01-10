@@ -1,7 +1,7 @@
 Curso de Lenguaje R
 ===================
 
-Objetivo
+Objetivo Tema 3
 --------
 
 Poder entender y usar las principales estructuras de control en R.
