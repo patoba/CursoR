@@ -4,28 +4,19 @@ Curso de Lenguaje R
 Objetivo
 --------
 
-Proporcionar informacion suficiente para comprender el lenguaje R con codigos de ejemplo
+Poder entender y usar las principales estructuras de control en R.
 
-Descripcion del proyecto
 ------------------------
 
-Se encontrara teoria y codigos de ejemplo para todos los temas
-
-Indice
+Indice Scripts
 ------
 
-**[1. Introducción a R][1]**
+**[1. If, If-Else](Estructurada1.md)**
 
-**[2. Manipulación de Datos en R][2]**
+**[2. For](Estructurada2.md)**
 
-**[3. Programación Estructurada][3]**
+**[3. While](Estructurada3.md)**
  
-**[4. Lectura de Datos][4]**
+**[4. Estructuras Anidadas](Estructurada4.md)**
  
-**[5. Graficación][5]**
-
-**[6. Distribuciones de Probabilidad][6]**
-
-
-[1]: https://github.com/patoba/Curso-Java/tree/master/Instalacion%20de%20Java 'Instalacion Java'
-
+**[5. Vectorizacion](Estructurada5.md)**
