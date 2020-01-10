@@ -1,0 +1,98 @@
+---
+title: "RMarkdown"
+author: "Emanuel Flores Martínez"
+date: "10/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introducción a RMarkdown
+
+Hay 6 tipos de títulos en Markdown:
+
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+###### Título 6
+
+Se pueden usar letras *cursivas* usando el símbolo '\*' al inicio y al final de la palabra que queremos modificar, de igual manera se pueden hacer letras **negritas** usando '\*\*'. 
+Para obtener cursivas y negritas ***al mismo tiempo*** se utilizan tres asteríscos '***'.
+
+### Listas
+
+También se pueden hacer listas desordeandas, por ejemplo:
+
+*Operaciones*
+
+- Suma
+- Resta
+- Multiplicación
+- División
+- Avanzadas:
+  - Factorial
+  - Media
+  - Moda
+- Cálculo:
+  + Integral
+  + Derivada
+  
+Para usar listas ordenadas se debe poner un número:
+
+1. Ir a la tienda
+2. Comprar sopa
+3. Calentar agua
+1. Esperar a que se cocine
+    a. Pueden ser 5 minutos
+    b. O bien 10 minutos
+5. Comer
+
+### Imagenes
+
+Se pueden colocar imagenes de la siguiente manera:
+`![](<ruta_imagen>)`
+
+![](/home/emanuel/Documents/R/patito.jpg)
+
+### Links
+
+https://cran.r-project.org/
+
+[CRAN](https://cran.r-project.org/)
+
+### Código
+
+1. En una sola línea: `print("Hello World!")` `r 2+2`
+
+2. En muchas líneas de código: 
+```
+area = base * altura
+volumen = base * ancho * altura
+```
+
+### LaTeX
+
+\LaTeX es un procesador de texto, el cuál es muy útil para mostrar operaciones matemáticas muy complejas:
+
+- Se pueden poner en la misma línea: $\dfrac{5}{2}=$ `r 5/2`
+
+- O bien lo pueden mostrar abajo y centrado: $$\int_{0}^{\infty}x dx$$
+
+### Chunks
+
+```{r Vector equidistante}
+x = seq(1, 7, length.out = 14)
+x
+```
+
+Para mostrar que los números son equidistantes, se puede utilizar la función `diff(<vector>)`, este realiza la resta entre dos elementos consecutivos de un vector:
+
+```{r Demostración de vector equidistante}
+diff(x)
+```
+
+
