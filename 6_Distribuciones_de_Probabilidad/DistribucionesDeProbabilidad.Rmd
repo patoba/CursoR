@@ -1,0 +1,215 @@
+---
+title: "Distribuciones de Probabilidad"
+output: html_notebook
+---
+# Distribuciones de Probabilidad
+
+Distribuciones más populares
+
+* Distribución binomial 	binom
+* Distribución de Poisson 	pois
+* Distribución normal 	norm
+* Distribución exponencial 	exp
+* Distribución t de Student 	t
+* Distribución \( \chi^2 \) 	chisq
+* Distribución F 	f
+
+**Prefijos**
+
+Función de distribución 	p
+Función cuantílica 	q
+Función de densidad (continuas) o de probabilidad (discretas) 	d
+Generación de números aleatorios 	r
+
+# Distribución Binomial
+
+x ~ # de exitos en n ensayos de bernulli  
+x ~ Binomial(n, p)  
+n numero de de ensallos  
+p probabilidad de exito  
+
+**Suponemos valores**
+
+```{r}
+k = 2
+n = 6
+p = 0.2
+```
+
+Evalamos en la funcion de probabilidad
+```{r}
+v <- dbinom(k,n,p)
+print(v)
+```
+
+Evaluamos en la funcion de densidad
+```{r}
+v <- pbinom(k, n, p)
+v2 <- sum(dbinom(0:k, n, p))
+print(v)
+print(v2)
+```
+
+Cuartiles
+```{r}
+v <- pbinom(seq(0, 1, by = .25), n, p)
+print(v)
+```
+
+Valores de la distribución
+```{r}
+print(rbinom(15, n, p))
+```
+
+
+
+Mostramos la funcion de probabilidad de la Distrbucion Binomial 
+```{r}
+plot(0:n, dbinom(0:n, n, p),type="h",xlab="k",
+     ylab="P(X=k)",
+    main="Función de Probabilidad B(6, 0.2)")
+```
+
+Mostramos la funcion de distribución de la Distrbucion Binomial 
+```{r}
+plot(stepfun(0:n, pbinom(0:(n+1), n, p)),
+     xlab="k",ylab="F(k)",
+     main="Función de distribución B(6, 0.2)")
+```
+
+
+Simulación muy grande (10000 elementos de la distribucion binomial)
+```{r}
+x <- rbinom(10000, n, p)
+freqAbs <- table(x)  # Realiza la cuenta
+print(freqAbs)
+
+```
+
+
+```{r}
+freqRel <- data.frame(freqAbs / sum(freqAbs))
+print(freqRel)
+```
+
+```{r}
+probsReales <- data.frame(x = 0:n, prob = dbinom(0:n, n, p))
+print(probsReales)
+```
+
+
+```{r}
+union  = merge(freqRel, probsReales)
+print(union)
+```
+
+
+```{r}
+with(union,{
+  plot(x, Freq, pch = 3)
+  lines(x, Freq, lty = 3, lwd = 2)
+  points(x,prob,col="red",pch=4)
+  lines(x,prob,col="red",lty=2,lwd=2)
+  legend("topright",c("frec. relativa","probabilidad"),col=c("black","red"),lty=1:2, pch=c(1,4))
+})
+```
+
+
+
+# Distribución Normal
+
+Suponemos valores
+
+```{r}
+mu <- 84
+sigma <- 6
+```
+
+Distribución Normalizada
+```{r}
+normalizar <- function(x, mu, sigma) (x - mu) / sigma
+v <- pnorm(normalizar(84, mu, sigma))  # valor normal estandar
+print(v)
+```
+
+Valor de la distribución con valores especificos
+```{r}
+v <- pnorm(88.8, mu, sigma)
+print(v)
+```
+
+P(x < 80)
+```{r}
+pnorm(80, mu, sigma)
+```
+
+P(x >= 80)
+```{r}
+1 - pnorm(80, mu, sigma)
+pnorm(80, mu, sigma,  lower.tail=FALSE)
+```
+
+Intervalo P(a<x<b) mediante una integral
+```{r}
+a <- 82.8
+b <- 88.8
+miDensidad=function(x) dnorm(x,mu, sigma)
+n <- integrate(miDensidad, a, b)$value
+print(n)
+```
+
+Intervalo P(a<x<b) mediante una resta
+```{r}
+print(pnorm(b, mu, sigma) - pnorm(a, mu, sigma))
+```
+
+Cuartiles
+```{r}
+print(qnorm(.5, mu, sigma))
+```
+
+
+Grafica funcion de probabilidad
+```{r}
+limInf <- mu - 5 * sigma
+limSup <- mu + 5 * sigma
+x <- seq(limInf, limSup, by = 0.5)
+curve(dnorm(x, mu, sigma),xlim=c(limInf, limSup),
+      col="blue",lwd=2,xlab="x",ylab="f(x)",
+      main="Función de Densidad N(170,12)")
+```
+
+
+
+Grafica de funcion de distribucion
+```{r}
+curve(pnorm(x,mu, sigma),xlim=c(limInf, limSup),col="blue",lwd=2,
+        xlab="x",ylab="F(x)",main="Función de Distribución N(170,12)")
+```
+
+
+Grafica de la función de probabilidad con el intervalo [70, 80] subrayado 
+```{r}
+limInf2 <- 70
+limSup2 <- 80
+regionX=seq(limInf2,limSup2, 0.01)            # Intervalo a sombrear
+xP <- c(limInf2, regionX, limSup2)             # Base de los polígonos que crean el efecto "sombra"
+yP <- c(0,dnorm(regionX, mu, sigma),0)   # Altura de los polígonos sombreados
+curve(dnorm(x, mu, sigma),xlim=c(limInf, limSup),
+      yaxs="i",ylim=c(0,0.07),ylab="f(x)",
+      main='Densidad N(170,12)') 
+polygon(xP,yP,col="red")
+```
+
+Histograma
+```{r}
+X=rnorm(10000, mu, sigma)
+hist(X,freq=FALSE,col="lightsalmon",
+     main="Histograma",
+     sub="Datos simulados de una N(170,12)",
+     ylim = c(0,0.08))
+curve(dnorm(x,mu,sigma),xlim=c(limInf,limSup),
+      col="blue",lwd=2,add=TRUE)
+```
+
+
